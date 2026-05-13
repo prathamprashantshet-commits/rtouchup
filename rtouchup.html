@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RtouchUp — Beauty & Skincare Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --plum: #1a0a2e;
+    --deep: #110720;
+    --violet: #3b1060;
+    --lavender: #6b2fa0;
+    --rose: #e06bbf;
+    --blush: #f4c8e8;
+    --cream: #fdf6f0;
+    --mist: #c9a8e0;
+    --text: #1a0a2e;
+    --text-muted: #6b5a80;
+    --card-bg: #ffffff;
+    --border: rgba(160, 80, 180, 0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(26, 10, 46, 0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(224, 107, 191, 0.2);
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--blush);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+  .logo em { color: var(--rose); font-style: normal; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--mist); font-size: 14px; text-decoration: none;
+    letter-spacing: 0.5px; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blush); }
+  .nav-cta {
+    background: var(--rose); color: var(--plum);
+    border: none; padding: 9px 22px; border-radius: 30px;
+    font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--blush); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+  .nav-toggle span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--blush); margin: 5px 0; transition: 0.3s;
+  }
+
+  /* ─── HERO ────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--deep) 0%, var(--plum) 40%, var(--violet) 80%, #8b3fc0 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 60%, rgba(107, 47, 160, 0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb1 { width: 400px; height: 400px; background: rgba(224, 107, 191, 0.18); top: -100px; right: -80px; animation-delay: 0s; }
+  .orb2 { width: 300px; height: 300px; background: rgba(107, 47, 160, 0.3); bottom: -80px; left: -60px; animation-delay: 3s; }
+  .orb3 { width: 200px; height: 200px; background: rgba(244, 200, 232, 0.1); top: 40%; left: 10%; animation-delay: 1.5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 700px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(224, 107, 191, 0.12);
+    border: 0.5px solid rgba(224, 107, 191, 0.35);
+    color: var(--blush); border-radius: 30px;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 18px; margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--rose); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 600; line-height: 1.1;
+    color: #fff; margin-bottom: 1.2rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero h1 em { color: var(--rose); font-style: italic; }
+  .hero p {
+    font-size: 17px; color: var(--mist); line-height: 1.7;
+    max-width: 500px; margin: 0 auto 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--rose); color: var(--plum);
+    border: none; padding: 14px 32px; border-radius: 40px;
+    font-size: 15px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s; text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--blush); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--blush);
+    border: 0.5px solid rgba(244, 200, 232, 0.4);
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 15px; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s; text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(244, 200, 232, 0.08); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--mist); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 40px; background: linear-gradient(to bottom, var(--rose), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform:scaleY(0);transform-origin:bottom} }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTIONS COMMON ─────────────────── */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--rose); font-weight: 500; margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-eyebrow::after { content: ''; flex: 0 0 30px; height: 1px; background: var(--rose); }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 600; color: var(--text); margin-bottom: 2.5rem;
+    line-height: 1.2;
+  }
+  .section-title em { color: var(--lavender); font-style: italic; }
+
+  /* ─── CATEGORIES ──────────────────────── */
+  .categories { background: #fff; }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .cat-card {
+    border: 0.5px solid var(--border);
+    border-radius: 20px; padding: 2rem 1.5rem;
+    text-align: center; cursor: pointer;
+    background: var(--cream);
+    transition: all 0.25s; position: relative; overflow: hidden;
+    text-decoration: none; display: block; color: inherit;
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(107, 47, 160, 0.04));
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .cat-card:hover { transform: translateY(-4px); border-color: rgba(224, 107, 191, 0.4); box-shadow: 0 12px 40px rgba(107, 47, 160, 0.1); }
+  .cat-card:hover::before { opacity: 1; }
+  .cat-emoji { font-size: 36px; margin-bottom: 1rem; display: block; }
+  .cat-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 6px; color: var(--plum); }
+  .cat-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .cat-arrow {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 1rem; font-size: 12px; color: var(--rose); font-weight: 500;
+  }
+
+  /* ─── FEATURED ARTICLES ───────────────── */
+  .articles-section { background: var(--cream); }
+  .articles-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; }
+
+  .article-card {
+    background: #fff;
+    border: 0.5px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    cursor: pointer; transition: all 0.25s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .article-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(107, 47, 160, 0.1); }
+
+  .article-img-wrap {
+    width: 100%; aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--violet), var(--lavender));
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .article-card.featured .article-img-wrap { aspect-ratio: 16/10; }
+  .article-img-wrap .overlay-text {
+    position: absolute; bottom: 1rem; left: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .article-img-icon { font-size: 48px; opacity: 0.35; filter: grayscale(0.3); }
+
+  .article-body { padding: 1.4rem; }
+  .article-tag {
+    display: inline-block; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--rose); font-weight: 500; margin-bottom: 8px;
+    background: rgba(224, 107, 191, 0.08);
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .article-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600; color: var(--plum);
+    line-height: 1.3; margin-bottom: 8px;
+  }
+  .article-card.small .article-body h3 { font-size: 16px; }
+  .article-body p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .article-card.small .article-body p { display: none; }
+  .article-meta {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 1rem; font-size: 12px; color: var(--text-muted);
+  }
+  .meta-dot { width: 3px; height: 3px; background: var(--border); border-radius: 50%; }
+
+  /* ─── TIPS STRIP ──────────────────────── */
+  .tips-strip {
+    background: linear-gradient(120deg, var(--plum) 0%, var(--violet) 100%);
+    padding: 3rem 2rem;
+  }
+  .tips-strip .container { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .tip-item { flex: 1; min-width: 200px; display: flex; gap: 1rem; align-items: flex-start; }
+  .tip-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px; font-weight: 600; color: rgba(224, 107, 191, 0.25);
+    line-height: 1; flex-shrink: 0;
+  }
+  .tip-item h4 { font-size: 14px; font-weight: 500; color: var(--blush); margin-bottom: 4px; }
+  .tip-item p { font-size: 13px; color: var(--mist); line-height: 1.6; }
+
+  /* ─── QUIZ SECTION ────────────────────── */
+  .quiz-section { background: #fff; }
+  .quiz-wrap {
+    background: linear-gradient(135deg, var(--deep), var(--violet));
+    border-radius: 28px; padding: 3.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .quiz-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3vw, 40px); font-weight: 600;
+    color: #fff; margin-bottom: 0.8rem; line-height: 1.2;
+  }
+  .quiz-left h2 em { color: var(--rose); font-style: italic; }
+  .quiz-left p { font-size: 15px; color: var(--mist); line-height: 1.6; max-width: 380px; }
+  .quiz-right { flex-shrink: 0; }
+
+  /* ─── NEWSLETTER ──────────────────────── */
+  .newsletter { background: var(--cream); }
+  .newsletter-box {
+    max-width: 600px; margin: 0 auto; text-align: center;
+  }
+  .newsletter-box .section-eyebrow { justify-content: center; }
+  .newsletter-box .section-eyebrow::after { display: none; }
+  .newsletter-box p { color: var(--text-muted); margin-bottom: 2rem; font-size: 16px; line-height: 1.6; }
+  .nl-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+  .nl-form input {
+    flex: 1; padding: 13px 18px;
+    border: 0.5px solid var(--border);
+    border-radius: 40px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: #fff; color: var(--text); outline: none;
+    transition: border-color 0.2s;
+  }
+  .nl-form input::placeholder { color: var(--text-muted); }
+  .nl-form input:focus { border-color: var(--rose); }
+  .nl-form button {
+    background: var(--plum); color: var(--blush);
+    border: none; padding: 13px 24px; border-radius: 40px;
+    font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; white-space: nowrap; transition: background 0.2s;
+  }
+  .nl-form button:hover { background: var(--violet); }
+  .nl-note { font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+
+  /* ─── FOOTER ──────────────────────────── */
+  footer {
+    background: var(--deep);
+    border-top: 0.5px solid rgba(224, 107, 191, 0.1);
+    padding: 3rem 2rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .footer-brand .logo { display: block; margin-bottom: 0.8rem; font-size: 22px; }
+  .footer-brand p { font-size: 13px; color: #5a4070; max-width: 220px; line-height: 1.6; }
+  .footer-col h4 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--mist); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul li a { font-size: 13px; color: #5a4070; text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--blush); }
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto;
+    border-top: 0.5px solid rgba(224, 107, 191, 0.08);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    font-size: 12px; color: #3a2850;
+  }
+  .footer-bottom a { color: var(--rose); text-decoration: none; }
+
+  /* ─── MOBILE ──────────────────────────── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-toggle { display: block; }
+    nav.open .nav-links {
+      display: flex; flex-direction: column;
+      position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--deep); padding: 1.5rem;
+      border-bottom: 0.5px solid rgba(224,107,191,0.1);
+      gap: 1.2rem;
+    }
+    nav.open .nav-cta { display: block; margin-top: 0.5rem; }
+    .hero { padding-top: 6rem; }
+    section { padding: 3rem 1.2rem; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .article-card.small .article-body p { display: block; }
+    .quiz-wrap { padding: 2rem; }
+    .nl-form { flex-direction: column; }
+    .footer-inner { flex-direction: column; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .tips-strip .container { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">R<em>touch</em>Up</a>
+  <ul class="nav-links">
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#tips">Tips</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+  </ul>
+  <a href="#newsletter" class="nav-cta">Get tips ✦</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="dot"></span> Your beauty companion</div>
+    <h1>Glow from within,<br>shine with <em>intention</em></h1>
+    <p>Expert tips, honest advice, and curated guides for skincare, hair care, and cosmetics — crafted for every skin type and lifestyle.</p>
+    <div class="hero-btns">
+      <a href="#articles" class="btn-primary">Explore articles</a>
+      <a href="#categories" class="btn-outline">Browse topics</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="container">
+    <div class="section-eyebrow">Explore</div>
+    <div class="section-title">Browse by <em>category</em></div>
+    <div class="cat-grid">
+      <a href="#" class="cat-card">
+        <span class="cat-emoji">🧴</span>
+        <h3>Skincare</h3>
+        <p>Morning routines, serums, SPF, and glow secrets for every skin type</p>
+        <div class="cat-arrow">Read articles →</div>
+      </a>
+      <a href="#" class="cat-card">
+        <span class="cat-emoji">💇‍♀️</span>
+        <h3>Hair Care</h3>
+        <p>Masks, oils, scalp health, and growth tips for luscious locks</p>
+        <div class="cat-arrow">Read articles →</div>
+      </a>
+      <a href="#" class="cat-card">
+        <span class="cat-emoji">💄</span>
+        <h3>Cosmetics</h3>
+        <p>Makeup looks, foundation matching, and product recommendations</p>
+        <div class="cat-arrow">Read articles →</div>
+      </a>
+      <a href="#" class="cat-card">
+        <span class="cat-emoji">🌿</span>
+        <h3>Natural & DIY</h3>
+        <p>Home remedies, kitchen ingredients, and zero-waste beauty ideas</p>
+        <div class="cat-arrow">Read articles →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section class="articles-section" id="articles">
+  <div class="container">
+    <div class="section-eyebrow">Latest</div>
+    <div class="section-title">Featured <em>reads</em></div>
+    <div class="articles-grid">
+
+      <a href="#" class="article-card featured">
+        <div class="article-img-wrap">
+          <div class="article-img-icon">🌅</div>
+          <div class="overlay-text">Skincare</div>
+        </div>
+        <div class="article-body">
+          <span class="article-tag">Skincare</span>
+          <h3>The perfect morning skincare routine for every skin type</h3>
+          <p>Start your day with clarity. These dermatologist-approved steps take under 10 minutes and work for oily, dry, and combination skin alike. Build a ritual that transforms your complexion over time.</p>
+          <div class="article-meta">
+            <span>RtouchUp Team</span>
+            <span class="meta-dot"></span>
+            <span>5 min read</span>
+            <span class="meta-dot"></span>
+            <span>May 2026</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="article-card small">
+        <div class="article-img-wrap">
+          <div class="article-img-icon">🌿</div>
+        </div>
+        <div class="article-body">
+          <span class="article-tag">Hair Care</span>
+          <h3>5 natural remedies to reduce hair fall</h3>
+          <p>Proven home treatments using everyday ingredients.</p>
+          <div class="article-meta">
+            <span>4 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="article-card small">
+        <div class="article-img-wrap">
+          <div class="article-img-icon">💄</div>
+        </div>
+        <div class="article-body">
+          <span class="article-tag">Cosmetics</span>
+          <h3>Finding your perfect foundation shade</h3>
+          <p>Match undertones like a professional artist.</p>
+          <div class="article-meta">
+            <span>3 min read</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- second row -->
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px;">
+      <a href="#" class="article-card small">
+        <div class="article-img-wrap" style="aspect-ratio:16/7;">
+          <div class="article-img-icon">☀️</div>
+        </div>
+        <div class="article-body">
+          <span class="article-tag">Skincare</span>
+          <h3>Why SPF is non-negotiable year-round</h3>
+          <p>UV rays are present even on cloudy days — here's why daily sunscreen is your #1 anti-aging step.</p>
+          <div class="article-meta"><span>3 min read</span></div>
+        </div>
+      </a>
+      <a href="#" class="article-card small">
+        <div class="article-img-wrap" style="aspect-ratio:16/7;">
+          <div class="article-img-icon">🥑</div>
+        </div>
+        <div class="article-body">
+          <span class="article-tag">DIY</span>
+          <h3>DIY avocado & honey hair mask</h3>
+          <p>Deep conditioning treatment for dry and damaged hair using ingredients from your kitchen.</p>
+          <div class="article-meta"><span>4 min read</span></div>
+        </div>
+      </a>
+      <a href="#" class="article-card small">
+        <div class="article-img-wrap" style="aspect-ratio:16/7;">
+          <div class="article-img-icon">✨</div>
+        </div>
+        <div class="article-body">
+          <span class="article-tag">Cosmetics</span>
+          <h3>Glass skin: myth or achievable goal?</h3>
+          <p>The dewy, translucent skin trend explained — and the routine steps that actually get you there.</p>
+          <div class="article-meta"><span>5 min read</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS STRIP -->
+<section class="tips-strip" id="tips">
+  <div class="container">
+    <div class="tip-item">
+      <div class="tip-num">01</div>
+      <div>
+        <h4>Double cleanse at night</h4>
+        <p>Remove makeup and sunscreen with an oil cleanser first, then follow with a gentle foam wash for truly clean pores.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">02</div>
+      <div>
+        <h4>Silk pillowcase for hair</h4>
+        <p>Swap cotton for silk to reduce overnight friction — fewer breakages, less frizz, and smoother skin too.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">03</div>
+      <div>
+        <h4>Layer thinnest to thickest</h4>
+        <p>Apply skincare in order of consistency: toner → serum → moisturizer → oil. Each layer needs to absorb properly.</p>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-num">04</div>
+      <div>
+        <h4>Drink water, not magic</h4>
+        <p>Hydration starts from within. Aim for 2L daily and pair with a good moisturizer for visible skin plumpness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ BANNER -->
+<section class="quiz-section">
+  <div class="container">
+    <div class="quiz-wrap">
+      <div class="quiz-left">
+        <h2>Not sure where<br>to <em>start?</em></h2>
+        <p>Take our free 2-minute skin type quiz and get a personalized routine built just for you — no guesswork required.</p>
+      </div>
+      <div class="quiz-right">
+        <a href="#" class="btn-primary" style="font-size:16px; padding:16px 36px;">Take the quiz ✦</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+  <div class="container">
+    <div class="newsletter-box">
+      <div class="section-eyebrow" style="justify-content:center;">Stay radiant</div>
+      <div class="section-title" style="margin-bottom:1rem;">Get weekly <em>beauty tips</em></div>
+      <p>Join thousands of beauty lovers who receive curated skincare routines, product picks, and expert advice every week — straight to their inbox.</p>
+      <div class="nl-form">
+        <input type="email" placeholder="your@email.com" />
+        <button type="button">Subscribe</button>
+      </div>
+      <p class="nl-note">No spam. Unsubscribe anytime. 💜</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">R<em>touch</em>Up</a>
+      <p>Your trusted guide for skincare, hair care, and cosmetics — for every skin type and lifestyle.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="#">Skincare</a></li>
+        <li><a href="#">Hair Care</a></li>
+        <li><a href="#">Cosmetics</a></li>
+        <li><a href="#">Natural & DIY</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#">Latest articles</a></li>
+        <li><a href="#">Skin type quiz</a></li>
+        <li><a href="#">Weekly tips</a></li>
+        <li><a href="#">Newsletter</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Pinterest</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">About us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RtouchUp. All rights reserved.</span>
+    <span>Made with ♥ for beauty lovers everywhere</span>
+    <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  const toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(26,10,46,0.98)'
+      : 'rgba(26,10,46,0.96)';
+  });
+  document.querySelector('.nl-form button').addEventListener('click', function () {
+    const input = document.querySelector('.nl-form input');
+    if (input.value.includes('@')) {
+      this.textContent = '✓ Subscribed!';
+      this.style.background = '#3b1060';
+      input.value = '';
+      input.placeholder = 'You\'re in! 💜';
+    } else {
+      input.style.borderColor = '#e06bbf';
+      input.placeholder = 'Enter a valid email';
+      input.value = '';
+    }
+  });
+</script>
+</body>
+</html>
